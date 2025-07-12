@@ -23,7 +23,6 @@ export const Navbar = () => {
                         >
                             Sign In
                         </Button>
-                        <Button className="rounded-full">Get Started</Button>
                         {/* Mobile Menu */}
                         <div className="md:hidden">
                             <NavigationSheet />
