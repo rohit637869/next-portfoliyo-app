@@ -4,6 +4,7 @@ import { CommentsCards } from './CommentsCards'
 import { ArrowUpRight, Badge, CirclePlay } from 'lucide-react'
 import { ContainerTextFlip } from '../ui/container-text-flip'
 import { AuroraBackground } from '../ui/aurora-background'
+import { FlipWords } from '../ui/flip-words'
 
 export default function Hero() {
     return (
@@ -16,7 +17,7 @@ export default function Hero() {
                         Just released v1.0.0
                     </Badge>
                     <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl md:leading-[1.2] font-bold">
-                        Hi, My Name is  Rohit and I am a <ContainerTextFlip words={["Software Developer", "Tech Enthusiast", "Problem Solver", "Web Architect", "Code Crafter", "Creative Thinker"]} />.
+                        Hi, My Name is  Rohit and I am a <FlipWords words={["Software Developer", "Tech Enthusiast", "Problem Solver", "Web Architect", "Code Crafter", "Creative Thinker"]} />.
 
                     </h1>
                     <p className="mt-6 text-[17px] md:text-lg">
