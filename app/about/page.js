@@ -53,9 +53,9 @@ export default function AboutPage() {
         <div className="flex-1 space-y-10">
           {/* Introduction */}
           <section>
-            <h3 className="text-3xl font-semibold mb-3">Hi, I'm Rohit!</h3>
+            <h3 className="text-3xl font-semibold mb-3">Hi, I am Rohit!</h3>
             <p className="text-lg leading-relaxed text-muted-foreground">
-              I'm a passionate <strong>full-stack developer</strong> with experience in building modern web and mobile applications. I enjoy solving real-world problems through technology and always stay curious about new trends like AI, cloud computing, and automation.
+              I am a passionate <strong>full-stack developer</strong> with experience in building modern web and mobile applications. I enjoy solving real-world problems through technology and always stay curious about new trends like AI, cloud computing, and automation.
             </p>
             <p className="mt-4 text-muted-foreground">
               Currently pursuing my B.Tech degree, I balance my academic life with personal projects, freelancing, and gaming. When not coding, I love exploring PUBG and brainstorming startup ideas.
