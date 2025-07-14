@@ -22,10 +22,9 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
 
-  let ck = cookies()
-  let user = await ck.get("user")?.value
-  
-  let name = (user)?JSON.parse(user).name:undefined
+  const ck = await cookies(); // ✅ Await the cookies
+  const user =  ck.get("user");
+  const name = user ? JSON.parse(user.value).name : undefined;
   
 
   return (
