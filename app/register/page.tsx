@@ -15,6 +15,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { json, z } from "zod";
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const formSchema = z
     .object({
@@ -29,6 +31,10 @@ const formSchema = z
     });
 
 const RegisterPage = () => {
+
+        let [submited,setSubmited] = useState(false)
+    
+
     const form = useForm<z.infer<typeof formSchema>>({
         defaultValues: {
             name: "",
@@ -42,6 +48,8 @@ const RegisterPage = () => {
 
 
     const onSubmit = (data: z.infer<typeof formSchema>) => {
+        if (submited) return
+        setSubmited(true)
         console.log("Register Data:", data);
         // yahan API call ya DB insert ka code likh sakte ho
         try {
@@ -58,6 +66,8 @@ const RegisterPage = () => {
                         return
                     }
                 }
+                setSubmited(false)
+
             }
             let formdata = new FormData()
             formdata.append("name", data.name)
@@ -69,11 +79,16 @@ const RegisterPage = () => {
 
         }
         catch (e) {
-            alert("Registration Failed")
+            toast.error("SERVER HAS AN ERROR",{
+                description: "connection error"
+            })
 
         }
 
     };
+
+
+
 
     return (
         <div className="min-h-screen flex items-center justify-center">
@@ -154,8 +169,8 @@ const RegisterPage = () => {
                             )}
                         />
 
-                        <Button type="submit" className="mt-4 w-full">
-                            Create Account
+                        <Button type="submit" variant={submited?"ghost":"default"} className="mt-4 w-full">
+                            {submited ? "...LOADING" :"Create Account"}
                         </Button>
                     </form>
                 </Form>

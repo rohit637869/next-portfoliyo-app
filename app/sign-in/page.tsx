@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { email, z } from "zod";
@@ -23,6 +24,9 @@ const formSchema = z.object({
 });
 
 const Login01Page = () => {
+
+    let [submited,setSubmited] = useState(false)
+
     const form = useForm<z.infer<typeof formSchema>>({
         defaultValues: {
             email: "",
@@ -32,10 +36,13 @@ const Login01Page = () => {
     });
 
     const onSubmit = (data: z.infer<typeof formSchema>) => {
-
+        if(submited) return
+        setSubmited(true)
         let xhr = new XMLHttpRequest()
         xhr.open("POST", "/api/login", true)
         xhr.onload = function () {
+            setSubmited(false)
+
             try {
                 let response = JSON.parse(xhr.response)
                 if (response.message === "Logged in successfully") {
@@ -117,8 +124,8 @@ const Login01Page = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" className="mt-4 w-full">
-                            Continue with Email
+                        <Button type="submit" variant={submited?"ghost": 'default'}  className="mt-4 w-full">
+                            {submited?"...LOADING":"Continue with Email"} 
                         </Button>
                     </form>
                 </Form>
