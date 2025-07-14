@@ -1,41 +1,50 @@
+'use client'
 import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
+    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
 import { ModeToggle } from "../ModeToggle";
 
+
+const links = [
+    {
+        path: "/",
+        text: "Home",
+    },
+    {
+        path: "/blogs",
+        text: "Blogs",
+    },
+    {
+        path: "/about",
+        text: "About",
+    },
+    {
+        path: "/contact",
+        text: "Contact",
+    }
+]
+
 export const NavMenu = (props: NavigationMenuProps) => (
+
     <NavigationMenu {...props}>
         <NavigationMenuList className="gap-6 space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
-            <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                    <Link href="/">Home</Link>
-                </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                    <Link href="/blogs">Blog</Link>
-                </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                    <Link href="/about">About</Link>
-                </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                    <Link href="/contact">Contact Us</Link>
-                </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                    <ModeToggle />
-                </NavigationMenuLink>
-            </NavigationMenuItem>
+            {
+                links.map((link, index) => 
+                    <NavigationMenuItem key={index}>
+                        <NavigationMenuLink asChild>
+                            <Link className={""} href={link.path}>{link.text}</Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                )
+            }
+
+            
         </NavigationMenuList>
     </NavigationMenu>
 );
