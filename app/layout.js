@@ -3,7 +3,10 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/personal/Navbar";
 import Footer from "@/components/personal/Footer";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { connection } from "next/server";
+import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,27 +24,32 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-
   const ck = await cookies(); // ✅ Await the cookies
-  const user =  ck.get("user");
+  const user = ck.get("user");
   const name = user ? JSON.parse(user.value).name : undefined;
-  
+
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar name={(name)?"Hi, " + name :undefined} />
-            {children}
-            <Footer />
-          </ThemeProvider>
+        
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Toaster />
+          <NextTopLoader color="#db6216"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3} />
+          <Navbar name={(name) ? "Hi, " + name : undefined} />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

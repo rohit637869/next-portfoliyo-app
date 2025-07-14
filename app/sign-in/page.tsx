@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { email, z } from "zod";
 
 const formSchema = z.object({
@@ -22,7 +23,7 @@ const formSchema = z.object({
 });
 
 const Login01Page = () => {
-    const form = useForm < z.infer < typeof formSchema >> ({
+    const form = useForm<z.infer<typeof formSchema>>({
         defaultValues: {
             email: "",
             password: "",
@@ -31,24 +32,28 @@ const Login01Page = () => {
     });
 
     const onSubmit = (data: z.infer<typeof formSchema>) => {
+
         let xhr = new XMLHttpRequest()
-        xhr.open("POST","/api/login",true)
-        xhr.onload = function(){
+        xhr.open("POST", "/api/login", true)
+        xhr.onload = function () {
             try {
                 let response = JSON.parse(xhr.response)
-                if(response.message === "Logged in successfully"){
+                if (response.message === "Logged in successfully") {
                     location.href = "/"
                 }
-                else{
-                    alert(response.message)
+                else {
+                    toast.warning("Login Failed", {
+                        description: response.message,
+                        
+                    })
                 }
             } catch (error) {
-                
+
             }
         }
         let fd = new FormData()
-        fd.append("email",data.email)
-        fd.append("password",data.password)
+        fd.append("email", data.email)
+        fd.append("password", data.password)
         xhr.send(fd)
 
     };
