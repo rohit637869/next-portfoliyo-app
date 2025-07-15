@@ -7,8 +7,12 @@ import { Bell, Earth, LogOut, Settings, StickerIcon, User } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import path from "path"
+import NotificationsSection from '@/components/personal/NotificationsSection'
+import SettingsSection from '@/components/personal/Settings'
+// import { cookies } from "next/headers"
 
 export default function DashboardLayout() {
+  // const ck = cookies()
   const pathname = usePathname()
   const links = [
     {
@@ -22,14 +26,15 @@ export default function DashboardLayout() {
       path: "/dashboard/Notifications",
       text: "Notifications",
       icon: <Bell />,
-      component: <>Notifications aa gai</>
+      component: <NotificationsSection />
 
-    }, {
-      path: "/dashboard/settings",
-      text: "Settings",
-      icon: <Settings />,
-      component: <>Settings</>
-    }
+    },
+    // {
+    //   path: "/dashboard/settings",
+    //   text: "Settings",
+    //   icon: <Settings />,
+    //   component: <SettingsSection />
+    // }
   ]
 
   return (
@@ -56,9 +61,12 @@ export default function DashboardLayout() {
               </Button>
             </div>
           )}
-          <Button variant="ghost" className="justify-start text-red-500 hover:text-red-600">
-            <LogOut className="mr-2 h-5 w-5" />
-            Logout
+          <Button onClick={(e) => e.currentTarget.querySelector('a')?.click()} variant="ghost" className="justify-start text-red-500 hover:text-red-600">
+            <Link href={'/api/logout'} className="justify-center gap-3 flex">
+              <LogOut className="mr-2 h-5 w-5" />
+
+              Logout
+            </Link>
           </Button>
         </nav>
       </aside>
@@ -67,7 +75,7 @@ export default function DashboardLayout() {
       <main className="flex-1 p-8">
         <h1 className="text-2xl font-bold">Welcome to your Dashboard</h1>
         {
-          links.find(e=>pathname.startsWith(e.path))?.component
+          links.find(e => pathname.startsWith(e.path))?.component
         }
         {/* Add your dashboard content here */}
       </main>

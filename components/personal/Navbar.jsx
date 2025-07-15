@@ -9,9 +9,13 @@ import { CommentsCards } from "./CommentsCards";
 import { ContainerTextFlip } from "../ui/container-text-flip";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+// import { connection } from "next/server";
 
 export const Navbar = ({name}) => {
     const pathname = usePathname()
+    // connection()
+
+    
     
     return pathname.startsWith("/dashboard")?(<></>): (
         <div className=" bg-muted">

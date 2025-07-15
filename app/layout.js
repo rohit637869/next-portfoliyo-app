@@ -27,14 +27,15 @@ export default async function RootLayout({ children }) {
   const ck = await cookies(); // ✅ Await the cookies
   const user = ck.get("user");
   const name = user ? JSON.parse(user.value).name : undefined;
-
+  await connection()
+  
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -43,9 +44,9 @@ export default async function RootLayout({ children }) {
         >
           <Toaster />
           <NextTopLoader color="#db6216"
-          initialPosition={0.08}
-          crawlSpeed={200}
-          height={3} />
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={3} />
           <Navbar name={(name) ? "Hi, " + name : undefined} />
           {children}
           <Footer />
